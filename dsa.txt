@@ -1,0 +1,582 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package meta;
+
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.time.LocalDate;
+import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+public class Meta extends Application {
+
+Scene scene1, scene2,scene3,scene4,scene5,scene6 ;
+    
+@Override
+public void start(Stage primaryStage) throws FileNotFoundException {
+        
+primaryStage.setTitle("Railway Booking System");
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Scene 1 Register
+ 
+            Button button1= new Button("Back to main Menu ");
+            Text text1= new Text("Name");
+             Text text2= new Text("Phone");
+             Text text4= new Text("Email");
+             Text text6= new Text("National Id");
+             Text text9= new Text("Residence");
+             Text text7= new Text("Password");
+             Text text8= new Text("Confirm Password");
+             
+        Text text3= new Text("Registered");
+        
+        TextField textField1= new TextField();//name
+        TextField textField2= new TextField();//phone
+        TextField textField3= new TextField();//email
+        PasswordField pass1 =new PasswordField();//pass
+        PasswordField pass2 =new PasswordField();//confirm
+        TextField textField4= new TextField();//id
+        TextField textField5= new TextField();//residence
+        
+        
+        
+        Button buttonRegister = new Button("Register");
+               
+
+   
+GridPane gridPane = new GridPane ();
+         gridPane.setMinSize (600, 600);
+          gridPane.setPadding( new Insets(10,10,10,10));
+          gridPane.setVgap(10);
+          gridPane.setHgap(10);
+          gridPane.setAlignment(Pos.CENTER);
+
+           gridPane.add(text1, 0, 0);
+           gridPane.add(textField1,1,0);
+          
+          gridPane.add(text2, 0, 1);
+           gridPane.add(textField2,1,1);
+          
+          gridPane.add(text4,0, 2);
+          gridPane.add(textField3,1,2);
+          
+          gridPane.add(text6,0, 3);
+          gridPane.add(textField4,1,3);
+          
+          gridPane.add(text9,0, 4);
+          gridPane.add(textField5,1,4);
+          
+          gridPane.add(text7,0, 5);
+          gridPane.add(pass1,1,5);
+          
+          gridPane.add(text8,0, 6);
+          gridPane.add(pass2,1,6);
+          
+          gridPane.add(buttonRegister,2,9);
+          gridPane.add(button1,1,10);
+
+          buttonRegister.setOnMouseClicked((new EventHandler<javafx.scene.input.MouseEvent>() {
+    public void handle(javafx.scene.input.MouseEvent event) {
+    try{
+    final String name = textField1.getText();
+     final String email = textField2.getText();
+    final String Phone = textField3.getText();
+    final String nid = textField4.getText();
+    final String residence = textField5.getText();
+    final String password = pass1.getText();
+
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/railway","root","");
+    Statement st=con.createStatement();
+    //ResultSet rs=st.executeQuery("select name from names");
+    String sts = "INSERT INTO `register`(`name`,`email`,`Phone`,`nid`,`residence`,`password`) VALUES ("+"'"+name+"'"+","+"'"+email+"'"+","+"'"+Phone+"'"+","+"'"+nid+"'"+","+"'"+residence+"'"+","+"'"+password+"'"+")";
+    st.executeUpdate(sts);
+             Label registrationLabel = new Label(" Registration Is Sucessfull ");
+ 
+            StackPane secondaryLayout = new StackPane();
+            secondaryLayout.getChildren().add(registrationLabel);
+ 
+            Scene secondScene = new Scene(secondaryLayout, 400, 200);
+ 
+            // New window (Stage)
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Registration Status");
+            newWindow.setScene(secondScene);
+ 
+            // Specifies the modality for new window.
+            newWindow.initModality(Modality.WINDOW_MODAL);
+ 
+            // Specifies the owner Window (parent) for new window
+            newWindow.initOwner(primaryStage);
+ 
+            // Set position of second window, related to primary window.
+            newWindow.setX(primaryStage.getX() + 400);
+            newWindow.setY(primaryStage.getY() + 200);
+ 
+            newWindow.show();
+    }
+    catch(Exception ee){
+        
+            Label registrationLabel = new Label("Our Esteemed Customer Your Registration Is unsuccessfull ");
+            
+            StackPane secondaryLayout = new StackPane();
+            secondaryLayout.getChildren().add(registrationLabel);
+ 
+            Scene secondScene = new Scene(secondaryLayout, 400, 200);
+ 
+            // New window (Stage)
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Registration Status");
+            newWindow.setScene(secondScene);
+ 
+            // Specifies the modality for new window.
+            newWindow.initModality(Modality.WINDOW_MODAL);
+ 
+            // Specifies the owner Window (parent) for new window
+            newWindow.initOwner(primaryStage);
+ 
+            // Set position of second window, related to primary window.
+            newWindow.setX(primaryStage.getX() + 400);
+            newWindow.setY(primaryStage.getY() + 200);
+ 
+            newWindow.show();
+        }
+
+    }
+    })); 
+    
+     
+          
+         button1.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-font-size:13pt;");
+          buttonRegister.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-font-size:13pt;");
+         text1.setStyle("-fx-font: normal bold 20px'serif' ");
+         text2.setStyle("-fx-font: normal bold 20px'serif' ");
+         text4.setStyle("-fx-font: normal bold 20px'serif' ");
+         text3.setStyle("-fx-font: normal bold 20px'serif' ");
+         text6.setStyle("-fx-font: normal bold 20px'serif' ");
+         text8.setStyle("-fx-font: normal bold 20px'serif' ");
+         text9.setStyle("-fx-font: normal bold 20px'serif' ");
+         text7.setStyle("-fx-font: normal bold 20px'serif' ");
+         gridPane.setStyle("-fx-background-color: BEIGE;");
+
+          button1.setOnAction(e -> primaryStage.setScene(scene2)); 
+          scene1= new Scene(gridPane, 600, 600);
+   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////            
+//Scene 2///DashBoard
+Label label2= new Label("This is the second scene");
+Button button2= new Button("Go to scene Register");
+Button buttonBookk= new Button("Go to scene Book");
+Button buttonBay= new Button("Go to scene Pay");
+Button buttonImage= new Button("Go to scene Image");
+button2.setOnAction(e -> primaryStage.setScene(scene1));
+buttonBookk.setOnAction(e -> primaryStage.setScene(scene3));
+buttonBay.setOnAction(e -> primaryStage.setScene(scene4));
+buttonImage.setOnAction(e -> primaryStage.setScene(scene5));
+VBox layout2= new VBox(20);
+layout2.getChildren().addAll(label2, button2,buttonBookk,buttonBay,buttonImage);
+scene2= new Scene(layout2,600,600);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//scene 3
+
+       Button button3= new Button("Go to scene 1");
+       Text nameLabel = new Text("Name");
+       Text seatLabel = new Text("Seat Number");
+      //Text field for name and seat 
+      TextField nameText = new TextField(); 
+       TextField seatText = new TextField();
+      //Label for date of birth 
+      Text dotLabel = new Text("Date of travel");
+      //date picker to choose date 
+      DatePicker datePicker = new DatePicker(); 
+      LocalDate dot = datePicker.getValue();
+      //Label& textfield for gender
+      Text genderLabel = new Text("gender");
+      TextField genderText = new TextField();
+      //Label for board 
+      Text boardLabel = new Text("Boarding Terminus"); 
+      //choice box for boarding terminuses 
+       ChoiceBox boardchoiceBox = new ChoiceBox();
+      boardchoiceBox.getItems().addAll("Voi", "Athi River ", "Mtito Andei", "Mombasa", "Nairobi","Miaseni", "Mariakani","Kibwezi","Emali","Syokimau");
+      //Label for destination 
+      Text destinationLabel = new Text("Destination Terminus"); 
+      //Choice box for destination 
+      ChoiceBox destinationchoiceBox = new ChoiceBox();
+      destinationchoiceBox.getItems().addAll("Voi", "Athi River ", "Mtito Andei", "Mombasa", "Nairobi","Miaseni", "Mariakani","Kibwezi","Emali","Syokimau"); 
+      //Label for  
+      Button buttonBook = new Button("Book Train");
+       Button buttonScene1 = new Button("Back to DashBoard");
+       
+      GridPane grid = new GridPane();   
+      grid.setMinSize(700, 700);  
+      grid.setPadding(new Insets(10, 10, 10, 10));
+      grid.setVgap(5); 
+      grid.setHgap(5);                 
+      grid.setAlignment(Pos.CENTER); 
+      //Arranging all the nodes in the grid 
+      grid.add(nameLabel, 0, 0); 
+      grid.add(nameText, 1, 0); 
+       
+      grid.add(dotLabel, 0, 1);       
+      grid.add(datePicker, 1, 1); 
+      
+      grid.add(genderLabel, 0, 2); 
+      grid.add(genderText, 1, 2);
+      
+      grid.add(boardLabel, 0, 5); 
+      grid.add(boardchoiceBox, 1, 5);      
+       
+      grid.add(destinationLabel, 0, 6); 
+      grid.add(destinationchoiceBox, 1, 6);
+      
+      grid.add(seatLabel, 0, 8); 
+      grid.add(seatText, 1, 8); 
+      
+      grid.add(buttonBook, 2, 9);
+      
+      grid.add(buttonScene1, 0, 10);
+      
+
+      //Send data to the database
+    buttonBook.setOnMouseClicked((new EventHandler<javafx.scene.input.MouseEvent>() {
+    public void handle(javafx.scene.input.MouseEvent event) {
+         
+    try{
+        
+    final String name = nameText.getText();
+    final  LocalDate dot = datePicker.getValue();
+    final String gender =nameText.getText();                     
+    final String board =(String) boardchoiceBox.getValue();
+    final String destination = (String)destinationchoiceBox.getValue();
+    final String snumber = seatText.getText();
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/railway","root","");
+    Statement st=con.createStatement();
+    String sts = "INSERT INTO `book`(`name`,`dot`,`gender`,`board`,`destination`,`snumber`) VALUES ("+"'"+name+"'"+","+"'"+dot+"'"+","+"'"+gender+"'"+","+"'"+board+"'"+","+"'"+destination+"'"+","+"'"+snumber+"'"+")";
+    st.executeUpdate(sts); 
+}
+    catch(Exception ee){System.out.println(ee);seatLabel.setText("Booking  Unsuccessful");}
+    
+    
+   
+    }
+    }));  
+    
+      buttonBook.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-font-size:13pt;"); 
+      buttonScene1.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-font-size:13pt;");  
+      nameLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
+      dotLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
+      genderLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
+      boardLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
+      destinationLabel.setStyle("-fx-font: normal bold 15px 'serif' "); 
+      seatLabel.setStyle("-fx-font: normal bold 15px 'serif' ");
+       
+button3.setOnAction(e -> primaryStage.setScene(scene1));
+buttonScene1.setOnAction(e -> primaryStage.setScene(scene2));
+scene3= new Scene(grid,600,600);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //scene4 
+Text amountLabel = new Text("Amount");
+        Text methodLabel = new Text("Method of Payment");
+        Text dopLabel = new Text("Date of Payment");
+        Text transactionLabel = new Text("Transaction code");
+        DatePicker date = new DatePicker(); 
+        LocalDate dop = datePicker.getValue();
+        
+        TextField amountText = new TextField(); 
+        TextField transactionText = new TextField();
+        
+        Button buttonPay = new Button("Confirm Payment");  
+        Button button4 = new Button("Back to dashBoard");  
+       
+      ChoiceBox methodchoiceBox = new ChoiceBox(); 
+      methodchoiceBox.getItems().addAll
+      ( "Cash", "Bitcoin ", "Visa Card ", "M-pesa", "Airtel Money","Pay Pal", "Stripe","T-Kash" ); 
+
+      GridPane Pane = new GridPane ();    
+      Pane.setMinSize(500, 500);  
+      Pane.setPadding(new Insets(10, 10, 10, 10));
+      Pane.setVgap(5); 
+      Pane.setHgap(5);                 
+      Pane.setAlignment(Pos.CENTER); 
+      Pane.add(amountLabel, 0, 0); 
+      Pane.add(amountText, 1, 0); 
+      Pane.add(dopLabel, 0, 1);       
+      Pane.add(datePicker, 1, 1);
+      Pane.add(methodLabel, 0, 2);      
+      Pane.add(methodchoiceBox, 1, 2);
+      Pane.add(transactionLabel, 0, 3);
+      Pane.add(transactionText, 1, 3);
+       
+      Pane.add(button4,0, 5);
+      Pane.add(buttonPay,2,4);
+      
+     
+
+ 
+        buttonPay.setOnMouseClicked((new EventHandler<javafx.scene.input.MouseEvent>() {
+        public void handle(javafx.scene.input.MouseEvent event) {
+            try{
+        final String amount = amountText.getText();
+         final String method = (String)methodchoiceBox.getValue();
+        final  LocalDate dop = datePicker.getValue();
+        final String transaction_code = transactionText.getText();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/railway","root","");
+        Statement st=con.createStatement();
+        //ResultSet rs=st.executeQuery("select name from names");
+        String sts = "INSERT INTO `payment`(`amount`,`method`,`dop`,`transaction_code`) VALUES ("+"'"+amount+"'"+","+"'"+method+"'"+","+"'"+dop+"'"+","+"'"+transaction_code+"'"+")";
+        st.executeUpdate(sts);
+        transactionText.setText("Payment Confirmed");
+        
+        }
+        catch(Exception ee){System.out.println(ee);transactionLabel.setText("Payment unsuccessfull");}
+        }
+        })); 
+                                                         
+           
+      
+        buttonPay.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-font-size:13pt;");
+        button4.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-font-size:13pt;");
+        amountLabel.setStyle("-fx-font: normal bold 20px'serif' ");
+        methodLabel.setStyle("-fx-font: normal bold 20px'serif' ");
+        transactionLabel.setStyle("-fx-font: normal bold 20px'serif' ");
+        dopLabel.setStyle("-fx-font: normal bold 20px'serif' ");
+        button4.setOnAction(e -> primaryStage.setScene(scene2));
+        scene4= new Scene(Pane,600,600);
+////////// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     //scene5
+     FileInputStream input = new FileInputStream("C:/Users/LENOVO/Downloads/photos/picha.jpeg");
+        Image image = new Image(input);
+        ImageView imageView = new ImageView(image);
+        imageView.setX(60);
+      imageView.setY(60);
+      imageView.setFitWidth(600);
+      imageView.setPreserveRatio(true);
+
+        Button button5 = new Button("Home");
+        GridPane greed = new GridPane ();
+         greed.setMinSize (600, 600);
+          greed.setPadding( new Insets(10,10,10,10));
+          greed.setVgap(10);
+          gridPane.setHgap(10);
+          greed.setAlignment(Pos.CENTER);
+          greed.add(button5, 0, 4);
+          greed.add(imageView, 0, 5);
+          button5.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-font-size:13pt;");
+        button5.setOnAction(e -> primaryStage.setScene(scene2));
+        scene5= new Scene(greed,600,600);
+        
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//scene6
+
+Label labelRoute =new Label("Routes And Fares");
+        Button button6 = new Button("Back To Main Menu");
+        final ObservableList<Route> data = FXCollections.observableArrayList();
+        GridPane fare = new GridPane();
+        
+        primaryStage.setScene(new Scene(gridPane));
+
+        
+        
+        data.add(new Route("Nairobi",0,45,45,56,56,567,819,89,23,12));
+        data.add(new Route("Mombasa",59,0,56,23,116,10,829,8,34,23));
+        data.add(new Route("Mariakani",50,90,0,101,20,20,819,889,45,34));
+        data.add(new Route("Emali",50, 30,40,0,98,40,839,869,34,45));
+        data.add(new Route("Kibwezi",50,12,56,44,0,50,849,879,45,56));
+        data.add(new Route("Voi", 59, 67,37,56,190,0,859,839,56,90));
+        data.add(new Route("Mtito",56, 92,61,56,198,70,0,890,56,45));
+        data.add(new Route("Miseni",58,83, 84,56,900,80,889,0,56,78));
+        data.add(new Route("Athi",50, 82, 81,56,190,90,879,879,0,67));
+        data.add(new Route("Syokimau",58,83, 84,56,900,899,899,809,56,0));
+        
+
+
+
+        TableColumn terminalCol = new TableColumn();
+        terminalCol.setText("    ---");
+        terminalCol.setCellValueFactory(new PropertyValueFactory("terminal"));
+        
+        TableColumn nairobiCol = new TableColumn();
+        nairobiCol.setText("Nairobi ");
+        nairobiCol.setCellValueFactory(new PropertyValueFactory("nairobi"));
+
+        TableColumn mombasaCol = new TableColumn();
+        mombasaCol.setText("Mombasa");
+        mombasaCol.setCellValueFactory(new PropertyValueFactory("mombasa"));
+
+        TableColumn mariakaniCol = new TableColumn();
+        mariakaniCol.setText("Mariakani");
+        mariakaniCol.setMinWidth(100);
+        mariakaniCol.setCellValueFactory(new PropertyValueFactory("mariakani"));
+
+        TableColumn emaliCol = new TableColumn();
+        emaliCol.setText("Emali");
+        emaliCol.setMinWidth(100);
+        emaliCol.setCellValueFactory(new PropertyValueFactory("emali"));
+
+        TableColumn kibweziCol = new TableColumn();
+        kibweziCol.setText("Kibwezi");
+        kibweziCol.setMinWidth(100);
+        kibweziCol.setCellValueFactory(new PropertyValueFactory("kibwezi"));
+        
+        TableColumn voiCol = new TableColumn();
+        voiCol.setText("Voi");
+        voiCol.setMinWidth(100);
+        voiCol.setCellValueFactory(new PropertyValueFactory("voi"));
+        
+        TableColumn mtitoCol = new TableColumn();
+        mtitoCol.setText("Mtito");
+        mtitoCol.setMinWidth(100);
+        mtitoCol.setCellValueFactory(new PropertyValueFactory("mtito"));
+        
+        TableColumn miaseniCol = new TableColumn();
+        miaseniCol.setText("Miaseni");
+        miaseniCol.setMinWidth(100);
+        miaseniCol.setCellValueFactory(new PropertyValueFactory("miaseni"));
+        
+        TableColumn athiCol = new TableColumn();
+        athiCol.setText("Athi");
+        athiCol.setMinWidth(100);
+        athiCol.setCellValueFactory(new PropertyValueFactory("athi"));
+        
+        TableColumn syokimauCol = new TableColumn();
+        syokimauCol.setText("Syokimau");
+        syokimauCol.setMinWidth(100);
+        syokimauCol.setCellValueFactory(new PropertyValueFactory("syokimau"));
+        
+         
+         gridPane.setMinSize (600, 600);
+          gridPane.setPadding( new Insets(10,10,10,10));
+          gridPane.setVgap(10);
+          gridPane.setHgap(10);
+          gridPane.setAlignment(Pos.CENTER);
+
+        TableView tableView = new TableView();
+        tableView.setItems(data);
+        tableView.getColumns().addAll( terminalCol,nairobiCol, mombasaCol, mariakaniCol, emaliCol, kibweziCol, voiCol, mtitoCol,miaseniCol,athiCol,syokimauCol );
+        gridPane.add(labelRoute,0,1);
+        gridPane.add(button6,0,2);
+        gridPane.add(tableView,0,3);
+        
+         gridPane.setStyle("-fx-background-color: BEIGE;");
+}
+
+ public static class Route {
+        
+        private final StringProperty terminal;
+        private final IntegerProperty nairobi;
+        private final IntegerProperty mombasa;
+        private final IntegerProperty mariakani;
+        private final IntegerProperty emali;
+        private final IntegerProperty kibwezi;
+        private final IntegerProperty athi;
+        private final IntegerProperty miaseni;
+        private final IntegerProperty mtito;
+        private final IntegerProperty voi;
+        private final IntegerProperty syokimau;
+        
+
+        private Route( String terminal, int nairobi, int mombasa, int mariakani, int emali, int kibwezi, int voi,int mtito, int miaseni,int athi,int syokimau) {
+             this.terminal = new SimpleStringProperty(terminal);
+            this.nairobi = new SimpleIntegerProperty(nairobi);
+            this.mombasa = new SimpleIntegerProperty(mombasa);
+            this.mariakani = new SimpleIntegerProperty(mariakani);
+            this.emali = new SimpleIntegerProperty(emali);
+            this.kibwezi = new SimpleIntegerProperty(kibwezi);
+            this.voi = new SimpleIntegerProperty(voi);
+            this.mtito = new SimpleIntegerProperty(mtito);
+            this.miaseni = new SimpleIntegerProperty(miaseni);
+            this.athi = new SimpleIntegerProperty(athi);
+            this.syokimau = new SimpleIntegerProperty(syokimau);
+            
+        }
+
+        
+        public StringProperty terminalProperty() {
+            return terminal;
+        }
+        public IntegerProperty nairobiProperty() {
+            return nairobi;
+        }
+
+        public IntegerProperty mombasaProperty() {
+            return mombasa;
+        }
+
+        public IntegerProperty mariakaniProperty() {
+            return mariakani;
+        }
+
+        public IntegerProperty emaliProperty() {
+            return emali;
+        }
+
+        public IntegerProperty kibweziProperty() {
+            return kibwezi;
+        }
+        public IntegerProperty voiProperty() {
+            return voi;
+        }
+        public IntegerProperty mtitoProperty() {
+            return mtito;
+        }
+        public IntegerProperty miaseniProperty() {
+            return miaseni;
+        }
+        public IntegerProperty athiProperty() {
+            return athi;
+        }
+        public IntegerProperty syokimauProperty() {
+            return syokimau;
+        }
+    }
+
+
+          
+
+primaryStage.setScene(scene2);
+primaryStage.show();
+}
+
+public static void main(String[] args) {
+launch(args);
+}
+    
+}
+
