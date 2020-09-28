@@ -10,9 +10,9 @@
 		$location = "TeamPhotos/";
 		
 		if(move_uploaded_file($tmp_name,$location.$brandName.".jpg")){
-			$ImageURL =$location.$brandName.".jpg";
+			$ImageURL =$location.$brandName.".jpg";//to give name of the image in the folger and DB
 			$DB = new Database();
-			$brand = new Photo(0, $brandName, $ImageURL);
+			$brand = new Photo(0, $brandName, $ImageURL);//
 			$DB->addPhoto($brand);
 			header('Location: TeamDetails.php');
 		
