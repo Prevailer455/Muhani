@@ -9,12 +9,12 @@
 <body>
 	<div class="heading" ><div id=“divid”><img src="images\logo\khf1.jpg" alt="images/khflogo" height="200" width="200">Kenya Handball Federation</div></div>
 	
-	<a href='league.php' class="btn btn-primary btn-lg active" role="button" aria-pressed="true">League Standings</a>
+	<a href='league.php' class="btn btn-primary btn-lg active" role="button" aria-pressed="true">League Standings</a><!----linked---- >
 	<a href='login.php' class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Login</a>
 	<a href='reg.php' class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Register</a><br><br>
 <style type="text/css"> body{ background-color: #2f3542;}</style>
 
- <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23616161&amp;ctz=Africa%2FNairobi&amp;src=a2hma2VueWExQGdtYWlsLmNvbQ&amp;src=Mjcza2ZtdW9vMmgza2Q4NzBhcG04ZTFiYXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23039BE5&amp;color=%23E4C441" style="border:solid 1px #777 " style="background-color: #2f3542" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+ <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23616161&amp;ctz=Africa%2FNairobi&amp;src=a2hma2VueWExQGdtYWlsLmNvbQ&amp;src=Mjcza2ZtdW9vMmgza2Q4NzBhcG04ZTFiYXNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23039BE5&amp;color=%23E4C441" style="bordesolid 1px #777 " style="background-color: #2f3542" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 <footer class="footer-distributed">
 
 			<div class="footer-left">
